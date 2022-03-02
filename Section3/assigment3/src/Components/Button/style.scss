@@ -1,0 +1,10 @@
+$primary-color : green;
+$default-color : blue;
+
+.primary{
+    background-color: $primary-color;
+}
+
+.default{
+    background-color: $default-color;
+}
