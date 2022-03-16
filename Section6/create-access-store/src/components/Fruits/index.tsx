@@ -1,10 +1,16 @@
 import React from "react";
-import { FruitsOwnProps, FruitsProps, FruitsStatePorps } from "./interface";
-import { connect, MapStateToProps } from "react-redux";
+import { FruitsDispatchProps, FruitsOwnProps, FruitsProps, FruitsStatePorps } from "./interface";
+import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 
 
 class Fruits extends React.Component<FruitsProps>{
+
+clickAddFruits = () => {
+    this.props.addFruits([ 'Mango', 'pinnapple' ]);
+}
+
     render(){
+
         const {ownerName, fruits} = this.props;
         return (
             <div>
@@ -13,6 +19,7 @@ class Fruits extends React.Component<FruitsProps>{
                 <ul>
                     {fruits.map((fruit) => <li key={fruit}>{fruit}</li>)}
                 </ul>
+                <button onClick={this.clickAddFruits}> Add Fruits </button>
             </div>
         )
     }
@@ -25,4 +32,10 @@ const mapStateToProps : MapStateToProps<FruitsStatePorps, FruitsOwnProps, string
 }
 
 
-export default connect(mapStateToProps)(Fruits);
+const mapDispatchToProps: MapDispatchToProps<FruitsDispatchProps, FruitsOwnProps> = (dispatch, ownProps) => {
+    return{
+        addFruits: (fruits) => dispatch({type: 'ADD_FRUITS', fruits})
+    }
+} 
+
+export default connect(mapStateToProps, mapDispatchToProps)(Fruits);
