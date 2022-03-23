@@ -5,6 +5,6 @@ import { usersReducer } from "./usersReducer";
 export const rootReducer = combineReducers({
     fruits: fruitsReducer,
     users: usersReducer,
-})
+});
 
-export type StoresStatesType = ReturnType<typeof rootReducer>
+export type StoreStateStype = ReturnType<typeof rootReducer>;
