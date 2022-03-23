@@ -1,7 +1,10 @@
 import React from "react";
 import { UsersDispatchProps, UsersOwnProps, UsersProps, UsersStatePorps } from "./interface";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { rootReducer } from "../../store/reducer/rootReducer";
+import { rootReducer, StoresStatesType } from "../../store/reducer/rootReducer";
+import UsersActions from "../../store/actions/usersAction";
+import { customDispatch } from "../../store/middlewares/customMiddleware";
+import { UsersReducersAction } from "../../store/reducer/usersReducer";
 
 
 class Users extends React.Component<UsersProps>{
@@ -33,9 +36,10 @@ const mapStateToProps : MapStateToProps<UsersStatePorps, UsersOwnProps, ReturnTy
 }
 
 
-const mapDispatchToProps: MapDispatchToProps<UsersDispatchProps, UsersOwnProps> = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch: customDispatch<StoresStatesType, UsersReducersAction>, ownProps:UsersOwnProps): UsersDispatchProps => {
+    const usersAction =  new UsersActions();
     return{
-        addUsers: (users) => dispatch({type: 'ADD_USERS', users})
+        addUsers: (users) => dispatch(usersAction.addUsers(users))
     }
 } 
 
