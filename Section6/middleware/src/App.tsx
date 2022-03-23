@@ -8,17 +8,11 @@ import { fruitsReducer } from './store/reducer/fruitsReducer';
 import { applyMiddleware, createStore, Middleware } from 'redux';
 import { Provider } from 'react-redux';
 import { rootReducer } from './store/reducer/rootReducer';
+import { customMiddleware } from './store/middlewares/customMiddleware';
+import { anotherMiddleware } from './store/middlewares/anotherMiddleware';
 
-//The creation of an middleware
-const customMiddleware: Middleware = store => next => action => {
-  if (typeof action === 'function') {
-    next(action(store));
-  }else{
-    next(action);
-  }
-}
 
-const store = createStore(rootReducer, {users: ['Oliver', 'Alan'] , fruits: ['Apple', 'Bannana']}, applyMiddleware(customMiddleware) );
+const store = createStore(rootReducer, {users: ['Oliver', 'Alan'] , fruits: ['Apple', 'Bannana']}, applyMiddleware(customMiddleware, anotherMiddleware) );
 
 function App() {
   return (
